@@ -1,0 +1,16 @@
+<table class="table mt-3 mb-5 border">
+    <thead>
+        <tr class="text-center">
+            <th>ID </th>
+            <th>Profile </th>
+            <th>Name </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="text-center" *ngFor="let user of userList">
+            <td>{{user.id}}</td>
+           <td> <img style="width: 25px;height: 25px;border-radius: 50%;" src="../../assets/899048ab0cc455154006fdb9676964b3.jpeg"></td>
+            <td>{{user.name}}</td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,162 @@
+<!-- TASK LIST -->
+<div>
+    <div class="mt-2">
+        <div class="card pt-2 pl-2 pr-2">
+        <div class="d-flex mb-3">
+            <div class="">
+                <input class="form-control search" type="search" placeholder="Search" aria-label="Search">
+            </div>
+            <!-- <div class="p-2 ml-auto "><button class="btn btn-outline-success" type="submit">Search</button></div> -->
+            <div class="ml-auto">
+                 <button class="btn btn-outline-success" (click)="onclick()">Add
+                    Task</button>
+            </div>
+
+
+        </div>
+        </div>
+        <table class="table mt-3 mb-5 border table-striped">
+            <thead>
+                <tr>
+                    <th>ID </th>
+                    <th>Assigned Name </th>
+                    <th>Assigned To</th>
+                    <th>Created on</th>
+                    <th>Due date</th>
+                    <th>Message</th>
+                    <th>Priority</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let task of taskList ">
+                    <td>{{task.id}}</td>
+                    <td>{{task.assigned_name}}</td>
+                    <td>{{task.assigned_to}}</td>
+                    <td>{{task.created_on}}</td>
+                    <td>{{task.due_date}}</td>
+                    <td>{{task.message}}</td>
+                    <td>{{task.priority}}</td>
+                    <td>
+                <tr>
+                    <button type="button" class="btn btn-outline-success" (click)="moreInfo(task)">More Info</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-outline-warning" (click)="selectUpdate(task)">Edit</button> &nbsp;
+                    <button type="button" class="btn btn-outline-danger" (click)="deletePopup(task.id)">Delete</button>
+                </tr>
+                </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- FOR MORE INFO -->
+<div class="modal" *ngIf="data" role="dialog" [ngStyle]="{'display':displayStyle}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">More Info</h4>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex flex-row">
+                    <div class="p-2">ID</div>
+                    <div class="p-2">{{data.id}}</div>
+                    <div class="p-2">Assigned Name</div>
+                    <div class="p-2">{{data.assigned_name}}</div>
+                </div>
+
+                <div class="d-flex flex-row">
+                    <div class="p-2">Created on</div>
+                    <div class="p-2">{{data.created_on}}</div>
+                    <div class="p-2">Due date</div>
+                    <div class="p-2">{{data.due_date}}</div>
+                </div>
+
+                <div class="d-flex flex-row">
+                    <div class="p-2">Message</div>
+                    <div class="p-2">{{data.message}}</div>
+                    <div class="p-2">Priority</div>
+                    <div class="p-2">{{data.priority}}</div>
+                </div>
+
+                <div class="d-flex flex-row">
+                    <div class="p-2">Assigned to</div>
+                    <div class="p-2">{{data.assigned_to}}</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="closePopup()">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOR ADD TASK-->
+<div class="modal" role="dialog" [ngStyle]="{'display':addDisplayStyle}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" *ngIf="!this.update">Add Task</h4>
+                <h4 class="modal-title" *ngIf="this.update">Update Task</h4>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="taskForm" (ngSubmit)="addTask()">
+                    <div class="form-group">
+                        <label>Message</label>
+                        <input type="text" class="form-control" formControlName="message" placeholder="Enter message">
+                    </div>
+                    <div class="form-group">
+                        <label>Due Date</label>
+                        <input type="text" class="form-control" formControlName="due_date" placeholder="Enter due date">
+                    </div>
+                    <div class="form-group">
+                        <label>Priority</label>
+                        <input type="text" class="form-control" formControlName="priority" placeholder="Enter priority">
+                    </div>
+                    <div class="form-group">
+                        <label>Assigned to</label>
+                        <input type="text" class="form-control" formControlName="assigned_to"
+                            placeholder="Enter assigned to">
+                    </div>
+                    <div *ngIf="!this.update"><button type="submit" class="btn btn-primary">Add Task</button></div>
+                    <div *ngIf="this.update"><button type="submit" class="btn btn-primary">Update Task</button></div>
+                </form>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="closePopup()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOR DELETE  -->
+<div class="modal" role="dialog" [ngStyle]="{'display':deleteDisplayStyle}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete task</h4>
+            </div>
+            <div class="modal-body">
+                <h4>Are you sure to delete</h4>
+                <div class="d-flex flex-row ">
+                    <div class="p-2"> <button type="button" class="btn btn-danger" (click)="deleteTask()">
+                      YES
+                    </button></div>
+                    <div class="p-2"> <button type="button" class="btn btn-warning" (click)="closePopup()">
+                     NO
+                    </button></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="closePopup()">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

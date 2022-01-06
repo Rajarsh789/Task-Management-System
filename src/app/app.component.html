@@ -1,0 +1,21 @@
+<div class="container-fluid">
+  <div class="card p-1 mt-3 ">
+   
+       <!-- NAVIGATION -->
+  <div class="">
+    <div class="d-flex">
+      <div> <h2 class="text-success pt-2 pl-3">Task Management System</h2></div> 
+      <div class="ml-auto d-flex">
+      <div class="p-3" routerLink="/tasklist"  [ngClass]="(this.viewType == 0) ? 'selectedView' : 'unSelectedView'"
+      (click)=changeView(0)> Task List </div>
+      <div class="p-3" routerLink="/userlist"  [ngClass]="(this.viewType == 1) ? 'selectedView' : 'unSelectedView'"
+      (click)=changeView(1)> User List </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+<!-- The routed views render in the <router-outlet>-->
+  <router-outlet></router-outlet>
+</div>

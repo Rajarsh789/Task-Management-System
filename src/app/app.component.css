@@ -1,0 +1,14 @@
+label{
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+}
+
+.selectedView {
+    color: green;
+  }
+
+.unSelectedView {
+    color: black;
+
+}
